@@ -1,1 +1,1 @@
-# oracleSQL-queries
+# Oracle SQL Queries
