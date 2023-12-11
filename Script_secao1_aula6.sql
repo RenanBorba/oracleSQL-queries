@@ -1,304 +1,220 @@
--- Criar tabela
-CREATE TABLE taluno
+-- CRIAR TABELA
+CREATE TABLE TALUNO
 (
-  cod_aluno INTEGER NOT NULL,
-  nome VARCHAR(30),
-  cidade VARCHAR2(20),
+  COD_ALUNO INTEGER NOT NULL,
+  NOME VARCHAR(30),
+  CIDADE VARCHAR2(20),
   CEP VARCHAR(10),
-  -- Chave identificadora da tabela
-  PRIMARY KEY (cod_aluno)
+  -- CHAVE IDENTIFICADORA DA TABELA
+  PRIMARY KEY (COD_ALUNO)
 );
 
--- SELECT básico
-SELECT * FROM taluno;
+-- SELECT BÁSICO
+SELECT * FROM TALUNO;
 
--- Inserir dados na tabela
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
-VALUES (1, 'Renan', 'Novo Hamburgo', '93000000');
+-- INSERIR DADOS NA TABELA
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+VALUES (1, 'RENAN', 'NOVO HAMBURGO', '93000000');
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
-VALUES (2, 'Paulo', 'Itapira', '94000000');
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+VALUES (2, 'PAULO', 'ITAPIRA', '94000000');
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
-VALUES (3, 'Paulo', 'Sinop', '95000000')
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+VALUES (3, 'PAULO', 'SINOP', '95000000')
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
-VALUES (4, 'Igor', 'Sinop', '95000000');
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+VALUES (4, 'IGOR', 'SINOP', '95000000');
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
-VALUES (5, 'Marcelo', 'Bebedouro', '96000000');
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+VALUES (5, 'MARCELO', 'BEBEDOURO', '96000000');
 
 
-CREATE TABLE tcurso
+CREATE TABLE TCURSO
 (
-  cod_curso INTEGER NOT NULL PRIMARY KEY,
-  nome VARCHAR2(30),
-  -- 8: precisão é o número de dígitos em um número
-  -- 2: escala é o número de dígitos à direita do ponto decimal
-  valor NUMBER(8,2),
-  carga_horario INTEGER
+  COD_CURSO INTEGER NOT NULL PRIMARY KEY,
+  NOME VARCHAR2(30),
+  -- 8: PRECISÃO É O NÚMERO DE DÍGITOS EM UM NÚMERO
+  -- 2: ESCALA É O NÚMERO DE DÍGITOS À DIREITA DO PONTO DECIMAL
+  VALOR NUMBER(8,2),
+  CARGA_HORARIO INTEGER
 )
 
-SELECT * FROM tcurso
+SELECT * FROM TCURSO
 
--- ; Permite executar mais de uma linha no mesmo comando
-INSERT INTO tcurso VALUES(1, 'Oracle SQL e PL/SQL', 500, 25);
-INSERT INTO tcurso VALUES(2, 'Oracle DBA', 499, 25);
-INSERT INTO tcurso VALUES(3, 'JAVA Fundamentos e OO', 1500, 100);
-INSERT INTO tcurso VALUES(4, 'JAVASERVER FACES', 1600, 100);
+-- ; PERMITE EXECUTAR MAIS DE UMA LINHA NO MESMO COMANDO
+INSERT INTO TCURSO VALUES(1, 'ORACLE SQL E PL/SQL', 500, 25);
+INSERT INTO TCURSO VALUES(2, 'ORACLE DBA', 499, 25);
+INSERT INTO TCURSO VALUES(3, 'JAVA FUNDAMENTOS E OO', 1500, 100);
+INSERT INTO TCURSO VALUES(4, 'JAVASERVER FACES', 1600, 100);
 
 
-CREATE TABLE tcontrato
+CREATE TABLE TCONTRATO
 (
-  cod_contrato INTEGER NOT NULL PRIMARY KEY,
-  data DATE,
-  cod_aluno INTEGER,
-  total NUMBER(8,2),
-  desconto NUMBER(5,2)
+  COD_CONTRATO INTEGER NOT NULL PRIMARY KEY,
+  DATA DATE,
+  COD_ALUNO INTEGER,
+  TOTAL NUMBER(8,2),
+  DESCONTO NUMBER(5,2)
 );
 
-SELECT * FROM tcontrato
+SELECT * FROM TCONTRATO
 
--- SYSDATE: Função Data/Hora da máquina
-INSERT INTO tcontrato VALUES(1, SYSDATE,   1, 500, 10);
-INSERT INTO tcontrato VALUES(2, SYSDATE,   2, 500, 10);
-INSERT INTO tcontrato VALUES(3, SYSDATE,   3, 1500, 05);
--- SYSDATE-5: Menos 5 dias
-INSERT INTO tcontrato VALUES(4, SYSDATE-5, 2, 1600, 10);
-INSERT INTO tcontrato VALUES(5, SYSDATE-4, 5, 800, 10);
-INSERT INTO tcontrato VALUES(6, SYSDATE-3, 5, 445, 0);
-INSERT INTO tcontrato VALUES(7, SYSDATE-2, 5, 445, 20);
+-- SYSDATE: FUNÇÃO DATA/HORA DA MÁQUINA
+INSERT INTO TCONTRATO VALUES(1, SYSDATE,   1, 500, 10);
+INSERT INTO TCONTRATO VALUES(2, SYSDATE,   2, 500, 10);
+INSERT INTO TCONTRATO VALUES(3, SYSDATE,   3, 1500, 05);
+-- SYSDATE-5: MENOS 5 DIAS
+INSERT INTO TCONTRATO VALUES(4, SYSDATE-5, 2, 1600, 10);
+INSERT INTO TCONTRATO VALUES(5, SYSDATE-4, 5, 800, 10);
+INSERT INTO TCONTRATO VALUES(6, SYSDATE-3, 5, 445, 0);
+INSERT INTO TCONTRATO VALUES(7, SYSDATE-2, 5, 445, 20);
 
--- Alterar tabela e adicionar coluna
-ALTER TABLE tcontrato ADD col_teste VARCHAR(50)
+-- ALTERAR TABELA E ADICIONAR COLUNA
+ALTER TABLE TCONTRATO ADD COL_TESTE VARCHAR(50)
 
--- Alterar tabela e excluir coluna
-ALTER TABLE tcontrato DROP COLUMN col_teste
+-- ALTERAR TABELA E EXCLUIR COLUNA
+ALTER TABLE TCONTRATO DROP COLUMN COL_TESTE
 
--- Alterar nome da coluna
-ALTER TABLE taluno RENAME COLUMN nome TO nome2;
-ALTER TABLE taluno RENAME COLUMN nome2 TO nome
+-- ALTERAR NOME DA COLUNA
+ALTER TABLE TALUNO RENAME COLUMN NOME TO NOME2;
+ALTER TABLE TALUNO RENAME COLUMN NOME2 TO NOME
 
 /*
-Clicar em cima do nome da tabela e apertar F12: abre o painel Object Viewer,
-com as estruturas da tabela, como colunas e referências
+CLICAR EM CIMA DO NOME DA TABELA E APERTAR F12: ABRE O PAINEL OBJECT VIEWER,
+COM AS ESTRUTURAS DA TABELA, COMO COLUNAS E REFERÊNCIAS
 */
 
--- Excluir tabela
-DROP TABLE nome_tabela
+-- EXCLUIR TABELA
+DROP TABLE NOME_TABELA
 
 
--- Criar sequência para inserção, no caso começando com 4
-CREATE SEQUENCE seq_aluno START WITH 4;
+-- CRIAR SEQUÊNCIA PARA INSERÇÃO, NO CASO COMEÇANDO COM 4
+CREATE SEQUENCE SEQ_ALUNO START WITH 4;
 
--- Excluir sequência
-DROP SEQUENCE seq_aluno
+-- EXCLUIR SEQUÊNCIA
+DROP SEQUENCE SEQ_ALUNO
 
-CREATE SEQUENCE seq_aluno START WITH 6;
+CREATE SEQUENCE SEQ_ALUNO START WITH 6;
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
--- Inserir o valor 6 na coluna "cod_aluno"
-VALUES (seq_aluno.NEXTVAL, 'Valdo', 'Canoas', '11000000');
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+-- INSERIR O VALOR 6 NA COLUNA "COD_ALUNO"
+VALUES (SEQ_ALUNO.NEXTVAL, 'VALDO', 'CANOAS', '11000000');
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
--- Inserir o próximo valor ao número "6"
-VALUES (seq_aluno.NEXTVAL, 'André', 'Ivoti', '12000000');
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+-- INSERIR O PRÓXIMO VALOR AO NÚMERO "6"
+VALUES (SEQ_ALUNO.NEXTVAL, 'ANDRÉ', 'IVOTI', '12000000');
 
-SELECT * FROM taluno
+SELECT * FROM TALUNO
 
 
 /*
-Data/hora atual do servidor/computador
-  DUAL: Tabela fictícia para executar funções, sem abstrair dados,
-    apenas para validação do comando
+DATA/HORA ATUAL DO SERVIDOR/COMPUTADOR
+  DUAL: TABELA FICTÍCIA PARA EXECUTAR FUNÇÕES, SEM ABSTRAIR DADOS,
+    APENAS PARA VALIDAÇÃO DO COMANDO
 */
 SELECT SYSDATE FROM DUAL;
 
--- Valor atual da sequência
-SELECT seq_aluno.CURRVAL FROM DUAL
+-- VALOR ATUAL DA SEQUÊNCIA
+SELECT SEQ_ALUNO.CURRVAL FROM DUAL
 
 
--- Controle de Transação (COMMIT e ROLLBACK)
--- Confirmar alterações realizadas (insert, update e delete)
+-- CONTROLE DE TRANSAÇÃO (COMMIT E ROLLBACK)
+-- CONFIRMAR ALTERAÇÕES REALIZADAS (INSERT, UPDATE E DELETE)
 COMMIT;
 
-SELECT * FROM taluno;
+SELECT * FROM TALUNO;
 
--- Apagar apenas dados, diferente de "DROP"
-DELETE FROM taluno;
+-- APAGAR APENAS DADOS, DIFERENTE DE "DROP"
+DELETE FROM TALUNO;
 
 
--- Desfazer alterações realizadas (insert, update e delete)
+-- DESFAZER ALTERAÇÕES REALIZADAS (INSERT, UPDATE E DELETE)
 ROLLBACK;
 
 
--- Excluir registro da tabela com condição
-DELETE FROM taluno
--- Onde
-WHERE cod_aluno = 7
+-- EXCLUIR REGISTRO DA TABELA COM CONDIÇÃO
+DELETE FROM TALUNO
+-- ONDE
+WHERE COD_ALUNO = 7
 
 ROLLBACK;
 
--- Consulta com filtro
-SELECT * FROM taluno
-WHERE nome = 'Valdo';
+-- CONSULTA COM FILTRO
+SELECT * FROM TALUNO
+WHERE NOME = 'VALDO';
 
-DELETE FROM taluno
-WHERE nome = 'Valdo';
+DELETE FROM TALUNO
+WHERE NOME = 'VALDO';
 
--- Após realizar o COMMIT,
+-- APÓS REALIZAR O COMMIT,
 COMMIT;
 
--- Não será possível desfazer alterações via ROLLBACK
+-- NÃO SERÁ POSSÍVEL DESFAZER ALTERAÇÕES VIA ROLLBACK
 ROLLBACK;
 
 
-CREATE TABLE titem
+CREATE TABLE TITEM
 (
-  cod_item INTEGER NOT NULL PRIMARY KEY,
-  cod_curso INTEGER,
-  cod_contrato INTEGER,
-  valor NUMBER(8,2)
+  COD_ITEM INTEGER NOT NULL PRIMARY KEY,
+  COD_CURSO INTEGER,
+  COD_CONTRATO INTEGER,
+  VALOR NUMBER(8,2)
 );
 
-INSERT INTO titem VALUES (1,1,1,500);
-INSERT INTO titem VALUES (2,1,2,500);
-INSERT INTO titem VALUES (3,3,3,1500);
-INSERT INTO titem VALUES (4,4,4,1600);
-INSERT INTO titem VALUES (5,1,5,500);
-INSERT INTO titem VALUES (6,1,6,500);
-INSERT INTO titem VALUES (7,2,6,500);
-INSERT INTO titem VALUES (8,3,7,500);
+INSERT INTO TITEM VALUES (1,1,1,500);
+INSERT INTO TITEM VALUES (2,1,2,500);
+INSERT INTO TITEM VALUES (3,3,3,1500);
+INSERT INTO TITEM VALUES (4,4,4,1600);
+INSERT INTO TITEM VALUES (5,1,5,500);
+INSERT INTO TITEM VALUES (6,1,6,500);
+INSERT INTO TITEM VALUES (7,2,6,500);
+INSERT INTO TITEM VALUES (8,3,7,500);
 
 COMMIT;
 
-SELECT * FROM titem
+SELECT * FROM TITEM
 
-SELECT * FROM tcontrato
-WHERE cod_contrato = 2;
-
-
--- Alterar registro da tabela
-UPDATE tcontrato SET
-  desconto = 18
-WHERE cod_contrato = 2;
-
-UPDATE tcontrato SET
-  desconto = 20,
-  data = '05/06/2013',
-  total = 750
-WHERE cod_contrato = 2;
+SELECT * FROM TCONTRATO
+WHERE COD_CONTRATO = 2;
 
 
-SELECT * FROM taluno
+-- ALTERAR REGISTRO DA TABELA
+UPDATE TCONTRATO SET
+  DESCONTO = 18
+WHERE COD_CONTRATO = 2;
 
-INSERT INTO taluno(cod_aluno, nome, cidade, cep)
-VALUES (seq_aluno.NEXTVAL, 'Carlos', 'BEBEDOURO', '14000000');
+UPDATE TCONTRATO SET
+  DESCONTO = 20,
+  DATA = '05/06/2013',
+  TOTAL = 750
+WHERE COD_CONTRATO = 2;
 
-UPDATE taluno SET
-  cidade = 'Guariba'
--- Compara a coluna por letras maiúsculas
-WHERE Upper(cidade) = 'BEBEDOURO';
 
-UPDATE taluno SET
-  nome = 'Frida'
-WHERE cod_aluno = 3;
+SELECT * FROM TALUNO
 
-SELECT * FROM tcurso
+INSERT INTO TALUNO(COD_ALUNO, NOME, CIDADE, CEP)
+VALUES (SEQ_ALUNO.NEXTVAL, 'CARLOS', 'BEBEDOURO', '14000000');
 
-UPDATE tcurso SET
-  valor = 499.99
-WHERE cod_curso = 1;
+UPDATE TALUNO SET
+  CIDADE = 'GUARIBA'
+-- COMPARA A COLUNA POR LETRAS MAIÚSCULAS
+WHERE UPPER(CIDADE) = 'BEBEDOURO';
+
+UPDATE TALUNO SET
+  NOME = 'FRIDA'
+WHERE COD_ALUNO = 3;
+
+SELECT * FROM TCURSO
+
+UPDATE TCURSO SET
+  VALOR = 499.99
+WHERE COD_CURSO = 1;
 
 COMMIT;
 
 
--- ALT + 3 = abre lista de tabelas e estruturas
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- ALT + 3 = ABRE LISTA DE TABELAS E ESTRUTURAS
+s
 
 
 

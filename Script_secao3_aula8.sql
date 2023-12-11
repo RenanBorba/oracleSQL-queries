@@ -1,388 +1,344 @@
--- Restringindo e limitando dados
-
-SELECT [DISTINCT] {*, COLUMN [alias], ...}
-FROM name_table
-[WHERE condition(s)];
+SELECT [DISTINCT] {*, COLUMN [ALIAS], ...}
+FROM NOME_TABLE;
 
 /*
-  Na sintaxe:
-  WHERE restringe a consulta para as linhas
-        que satisfazem a condição
-  condition é composta de nomes de colunas, expressões,
-        constantes, e operadores de comparação
+  NA SINTAXE:
+  SELECT = É UMA LISTA DE UMA OU MAIS COLUNAS
+  DISTINCT = SUPRIME DUPLICIDADES
+  * = SELECIONA TODAS AS COLUNAS
+  COLUMN = SELECIONA A COLUNA NOMEADA
+  ALIAS = FORNECE TÍTULOS DIFERENTES PARA AS COLUNAS SELECIONADAS
+  FROM NOME_TABLE = ESPECIFICA A TABELA QUE CONTÉM AS COLUNAS
 */
 
 
--- Strings de Caractere e Data são inclusos entre aspas simples
--- Valores caractere fazem distinção entre maiúsculas e minúsculas,
---  e valores tipo data são sensíveis ao formato
-SELECT cod_aluno, nome
-FROM taluno
-WHERE estado = 'RS';
+-- OPERAÇÕES COM COLUNAS COM VALORES NULL,
+--  ANULAM A OPERAÇÃO INTEIRA
 
-SELECT * FROM tcontrato
+
+-- ALIAS
+-- COM OU SEM AS
+SELECT COD_ALUNO CODIGO, NOME AS ALUNO
+FROM TALUNO;
+
+-- COM ESPAÇO NO NOME
+SELECT NOME "NOME DE ALUNO"
+FROM TALUNO;
+
+
+-- CONCATENAÇÃO
+-- JUNTA AS COLUNAS E NOMEIA A MESMA
+SELECT COD_ALUNO||NOME AS "ALUNO"
+FROM TALUNO;
+
+SELECT * FROM TALUNO
+
+
+-- STRINGS DE CARACTERE LITERAIS: QUALQUER CARACTERE,
+--  EXPRESSÃO OU NÚMERO EM ASPAS SIMPLES ''
+SELECT NOME || ' NASCEU EM ' || CIDADE AS "NASCIMENTO DO ALUNO"
+FROM TALUNO;
+
+
+-- NA PRÁTICA:
+
+-- ALIAS COM "" FORÇA AS LETRAS A FICAREM CAIXA BAIXA
+SELECT COD_ALUNO AS "CODIGO", NOME AS "NOME DO ALUNO"
+FROM TALUNO;
+
+
+-- DISTINCT ANALISA A LINHA INTEIRA, NÃO APENAS "CÉLULAS"
+SELECT DISTINCT CIDADE, COD_ALUNO
+FROM TALUNO
+-- ORDENA A COLUNA QUE IRÁ SER VISUALIZADA PRIMEIRO NA LISTAGEM
+ORDER BY CIDADE;
+
+SELECT * FROM TCURSO
+
+ALTER TABLE TCURSO RENAME COLUMN CARGA_HORARIO TO CARGA_HORARIA;
+
+SELECT NOME AS CURSO,
+       VALOR,
+       -- DIVISÃO P/ SABER VALOR DA HORA
+       VALOR/CARGA_HORARIA,
+       -- ARREDONDAR PARA DUAS CASAS DECIMAIS
+       ROUND(VALOR/CARGA_HORARIA,2) AS VALOR_HORA
+FROM TCURSO
+-- ALIAS SÓ FUNCIONA EM ORDER BY
+ORDER BY VALOR_HORA -- RESTRINGINDO E LIMITANDO DADOS
+
+SELECT [DISTINCT] {*, COLUMN [ALIAS], ...}
+FROM NAME_TABLE
+[WHERE CONDITION(S)];
+
+/*
+  NA SINTAXE:
+  WHERE RESTRINGE A CONSULTA PARA AS LINHAS
+        QUE SATISFAZEM A CONDIÇÃO
+  CONDITION É COMPOSTA DE NOMES DE COLUNAS, EXPRESSÕES,
+        CONSTANTES, E OPERADORES DE COMPARAÇÃO
+*/
+
+
+-- STRINGS DE CARACTERE E DATA SÃO INCLUSOS ENTRE ASPAS SIMPLES
+-- VALORES CARACTERE FAZEM DISTINÇÃO ENTRE MAIÚSCULAS E MINÚSCULAS,
+--  E VALORES TIPO DATA SÃO SENSÍVEIS AO FORMATO
+SELECT COD_ALUNO, NOME
+FROM TALUNO
+WHERE ESTADO = 'RS';
+
+SELECT * FROM TCONTRATO
 
 
 /*
-  Operadores:
+  OPERADORES:
 
-  = igual a
-  > maior que
-  >= maior que ou igual a
-  < menor que
-  <= menor que ou igual a
-  <> ou != diferente de
+  = IGUAL A
+  > MAIOR QUE
+  >= MAIOR QUE OU IGUAL A
+  < MENOR QUE
+  <= MENOR QUE OU IGUAL A
+  <> OU != DIFERENTE DE
 
-  WHERE expr operator value
+  WHERE EXPR OPERATOR VALUE
 */
 
--- Utilizando os Operadores de Comparação:
-SELECT cod_contrato, data, total, desconto + 10
-FROM tcontrato
-WHERE total <= desconto + 10;
+-- UTILIZANDO OS OPERADORES DE COMPARAÇÃO:
+SELECT COD_CONTRATO, DATA, TOTAL, DESCONTO + 10
+FROM TCONTRATO
+WHERE TOTAL <= DESCONTO + 10;
 
 /*
-  Outros Operadores de Comparação:
-  BETWEEN...AND... Entre dois valores (inclusive)
-  IN(list) Igual a um dos valores da lista
-  LIKE Igual a um padrão de caracteres
-  IS NULL Possui um valor nulo
-  IS NOT NULL Não possui um valor nulo
+  OUTROS OPERADORES DE COMPARAÇÃO:
+  BETWEEN...AND... ENTRE DOIS VALORES (INCLUSIVE)
+  IN(LIST) IGUAL A UM DOS VALORES DA LISTA
+  LIKE IGUAL A UM PADRÃO DE CARACTERES
+  IS NULL POSSUI UM VALOR NULO
+  IS NOT NULL NÃO POSSUI UM VALOR NULO
 */
 
 
-SELECT * FROM taluno;
+SELECT * FROM TALUNO;
 
 -- ALTER TABLE
 
--- Se executar o comando sem a restrição WHERE, irá afetar todas as linhas
--- DEFAULT = valor padrão na coluna
-ALTER TABLE taluno ADD estado CHAR(2) DEFAULT 'RS';
-ALTER TABLE taluno ADD salario NUMBER(8,2) DEFAULT 620;
+-- SE EXECUTAR O COMANDO SEM A RESTRIÇÃO WHERE, IRÁ AFETAR TODAS AS LINHAS
+-- DEFAULT = VALOR PADRÃO NA COLUNA
+ALTER TABLE TALUNO ADD ESTADO CHAR(2) DEFAULT 'RS';
+ALTER TABLE TALUNO ADD SALARIO NUMBER(8,2) DEFAULT 620;
 
-UPDATE taluno SET
-estado = 'AC',
-salario = 250
-WHERE cod_aluno = 1;
+UPDATE TALUNO SET
+ESTADO = 'AC',
+SALARIO = 250
+WHERE COD_ALUNO = 1;
 
-UPDATE taluno SET
-estado = 'MT',
-salario = 2000
-WHERE cod_aluno = 2;
+UPDATE TALUNO SET
+ESTADO = 'MT',
+SALARIO = 2000
+WHERE COD_ALUNO = 2;
 
-UPDATE taluno SET
-estado = 'SP',
-salario = 800
-WHERE cod_aluno = 4;
+UPDATE TALUNO SET
+ESTADO = 'SP',
+SALARIO = 800
+WHERE COD_ALUNO = 4;
 
 COMMIT;
 
-SELECT * FROM taluno;
+SELECT * FROM TALUNO;
 
-SELECT * FROM taluno
-WHERE estado <> 'RS'
-AND salario <= 800
--- Ordenar decrescentemente
-ORDER BY salario DESC;
+SELECT * FROM TALUNO
+WHERE ESTADO <> 'RS'
+AND SALARIO <= 800
+-- ORDENAR DECRESCENTEMENTE
+ORDER BY SALARIO DESC;
 
--- Inserir sem passar as colunas CEP, Estado e Salario,
---  onde Estado e Salario foram alteradas para valores padrão default
-INSERT INTO taluno (cod_aluno, nome, cidade)
-VALUES (seq_aluno.NEXTVAL, 'Valdo', 'Dois Irmaos');
+-- INSERIR SEM PASSAR AS COLUNAS CEP, ESTADO E SALARIO,
+--  ONDE ESTADO E SALARIO FORAM ALTERADAS PARA VALORES PADRÃO DEFAULT
+INSERT INTO TALUNO (COD_ALUNO, NOME, CIDADE)
+VALUES (SEQ_ALUNO.NEXTVAL, 'VALDO', 'DOIS IRMAOS');
 
-INSERT INTO taluno (cod_aluno, nome, cidade)
-VALUES (seq_aluno.NEXTVAL, 'Aldo', 'Quatro Irmaos');
+INSERT INTO TALUNO (COD_ALUNO, NOME, CIDADE)
+VALUES (SEQ_ALUNO.NEXTVAL, 'ALDO', 'QUATRO IRMAOS');
 
-SELECT * FROM taluno;
+SELECT * FROM TALUNO;
 
-UPDATE taluno SET
-estado = 'SP',
-salario = 900,
-nome = 'Jonatan'
-WHERE cod_aluno = 7
+UPDATE TALUNO SET
+ESTADO = 'SP',
+SALARIO = 900,
+NOME = 'JONATAN'
+WHERE COD_ALUNO = 7
 
--- Quando utilizar o ORDER BY com mais de uma coluna,
---  vai obedecer o critério de grupo da primeira coluna,
---   ordenando a próxima coluna a partir da coluna anterior
-SELECT estado, salario, nome
-FROM taluno
-ORDER BY estado, salario DESC;
+-- QUANDO UTILIZAR O ORDER BY COM MAIS DE UMA COLUNA,
+--  VAI OBEDECER O CRITÉRIO DE GRUPO DA PRIMEIRA COLUNA,
+--   ORDENANDO A PRÓXIMA COLUNA A PARTIR DA COLUNA ANTERIOR
+SELECT ESTADO, SALARIO, NOME
+FROM TALUNO
+ORDER BY ESTADO, SALARIO DESC;
 
 
--- 31/12/1899 - DATA Zero
+-- 31/12/1899 - DATA ZERO
 -- 01/01/1990 - DATA 1
 
--- Data de hoje - 1000 dias como padrão na coluna
-ALTER TABLE taluno ADD nascimento DATE DEFAULT SYSDATE - 1000;
+-- DATA DE HOJE - 1000 DIAS COMO PADRÃO NA COLUNA
+ALTER TABLE TALUNO ADD NASCIMENTO DATE DEFAULT SYSDATE - 1000;
 
-ALTER TABLE taluno
-DROP COLUMN nascimento
+ALTER TABLE TALUNO
+DROP COLUMN NASCIMENTO
 
-SELECT * FROM taluno;
+SELECT * FROM TALUNO;
 
--- Cálculo com a data do servidor
-SELECT SYSDATE - SYSDATE - 100 FROM dual;
+-- CÁLCULO COM A DATA DO SERVIDOR
+SELECT SYSDATE - SYSDATE - 100 FROM DUAL;
 
-UPDATE taluno SET
-nascimento = '10/08/2000'
-WHERE cod_aluno = 2
+UPDATE TALUNO SET
+NASCIMENTO = '10/08/2000'
+WHERE COD_ALUNO = 2
 
-UPDATE taluno SET
-nascimento = '10/10/2001'
-WHERE cod_aluno = 1
+UPDATE TALUNO SET
+NASCIMENTO = '10/10/2001'
+WHERE COD_ALUNO = 1
 
---  Alterar o padrão de máscara de data da sua sessão
+--  ALTERAR O PADRÃO DE MÁSCARA DE DATA DA SUA SESSÃO
 ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MM-YYYY HH24:MI';
 
--- Trunc: Truncamento(corte) de números p/ qtd de casas determinadas
-SELECT cod_aluno, Trunc(nascimento) Nascimento, nome
-FROM taluno
-WHERE Trunc(nascimento) = '23/10/2020';
+-- TRUNC: TRUNCAMENTO(CORTE) DE NÚMEROS P/ QTD DE CASAS DETERMINADAS
+SELECT COD_ALUNO, TRUNC(NASCIMENTO) NASCIMENTO, NOME
+FROM TALUNO
+WHERE TRUNC(NASCIMENTO) = '23/10/2020';
 
-SELECT cod_aluno, Trunc(nascimento) AS Nascimento, nome
-FROM taluno
-WHERE nascimento
-  -- BETWEEN: Filtrar dentro de um período
-  -- To_Date: Converter para data
-  -- 'DD/MM/YYYY HH24:MI': Formato de máscara de dia, mês, ano, hora e minutos
-    -- HH24: Formato de 24H (AM/PM)
-  BETWEEN To_Date('23/10/2020 00:01', 'DD/MM/YYYY HH24:MI')
-    AND To_Date('23/10/2020 12:00', 'DD/MM/YYYY HH24:MI')
+SELECT COD_ALUNO, TRUNC(NASCIMENTO) AS NASCIMENTO, NOME
+FROM TALUNO
+WHERE NASCIMENTO
+  -- BETWEEN: FILTRAR DENTRO DE UM PERÍODO
+  -- TO_DATE: CONVERTER PARA DATA
+  -- 'DD/MM/YYYY HH24:MI': FORMATO DE MÁSCARA DE DIA, MÊS, ANO, HORA E MINUTOS
+    -- HH24: FORMATO DE 24H (AM/PM)
+  BETWEEN TO_DATE('23/10/2020 00:01', 'DD/MM/YYYY HH24:MI')
+    AND TO_DATE('23/10/2020 12:00', 'DD/MM/YYYY HH24:MI')
 
-SELECT * FROM taluno;
+SELECT * FROM TALUNO;
 
 
-SELECT cod_contrato, data, total, desconto,
-       -- Cálculo de soma
-       desconto + 1000 AS Calculo
-FROM tcontrato
--- Condição: total for menor ou igual a desconto + 1000, por ex., 10 + 1000
-WHERE total <= desconto + 1000;
+SELECT COD_CONTRATO, DATA, TOTAL, DESCONTO,
+       -- CÁLCULO DE SOMA
+       DESCONTO + 1000 AS CALCULO
+FROM TCONTRATO
+-- CONDIÇÃO: TOTAL FOR MENOR OU IGUAL A DESCONTO + 1000, POR EX., 10 + 1000
+WHERE TOTAL <= DESCONTO + 1000;
 
-SELECT * FROM tcontrato
+SELECT * FROM TCONTRATO
 
-UPDATE tcontrato SET
-desconto = NULL
-WHERE cod_contrato = 2;
+UPDATE TCONTRATO SET
+DESCONTO = NULL
+WHERE COD_CONTRATO = 2;
 
-SELECT * FROM tcontrato
--- Onde o desconto for nulo
-WHERE desconto IS NULL;
+SELECT * FROM TCONTRATO
+-- ONDE O DESCONTO FOR NULO
+WHERE DESCONTO IS NULL;
 
-SELECT * FROM tcontrato
--- Onde o desconto não for nulo
-WHERE desconto IS NOT NULL;
+SELECT * FROM TCONTRATO
+-- ONDE O DESCONTO NÃO FOR NULO
+WHERE DESCONTO IS NOT NULL;
 
-SELECT * FROM tcontrato
--- Onde o desconto for entre 0 e 10
-WHERE desconto BETWEEN 0 AND 10;
+SELECT * FROM TCONTRATO
+-- ONDE O DESCONTO FOR ENTRE 0 E 10
+WHERE DESCONTO BETWEEN 0 AND 10;
 
--- Nvl 0> Colunar com valor null -> substitui o null por 0
--- BETWEEN = Entre
-SELECT cod_contrato, total, desconto, Nvl(desconto, 0)
-FROM tcontrato
-WHERE Nvl(desconto, 0) BETWEEN 0 AND 10;
+-- NVL 0> COLUNAR COM VALOR NULL -> SUBSTITUI O NULL POR 0
+-- BETWEEN = ENTRE
+SELECT COD_CONTRATO, TOTAL, DESCONTO, NVL(DESCONTO, 0)
+FROM TCONTRATO
+WHERE NVL(DESCONTO, 0) BETWEEN 0 AND 10;
 
--- Mesmo efeito do BETWEEN
-SELECT * FROM tcontrato
-WHERE desconto >= 0
-AND desconto <= 10
-OR desconto IS NULL;
+-- MESMO EFEITO DO BETWEEN
+SELECT * FROM TCONTRATO
+WHERE DESCONTO >= 0
+AND DESCONTO <= 10
+OR DESCONTO IS NULL;
 
 
 -- IN /// NOT IN
--- Valor na(em) listagem
-SELECT * FROM titem
-WHERE cod_curso IN (1, 2, 4);
+-- VALOR NA(EM) LISTAGEM
+SELECT * FROM TITEM
+WHERE COD_CURSO IN (1, 2, 4);
 
--- Valor não está(em) na listagem
-SELECT * FROM titem
-WHERE cod_curso NOT IN (1, 2, 3);
+-- VALOR NÃO ESTÁ(EM) NA LISTAGEM
+SELECT * FROM TITEM
+WHERE COD_CURSO NOT IN (1, 2, 3);
 
 
-SELECT * FROM tcurso
+SELECT * FROM TCURSO
 
-INSERT INTO tcurso VALUES (5, 'Windows 11', 1000, 50);
+INSERT INTO TCURSO VALUES (5, 'WINDOWS 11', 1000, 50);
 
--- Cursos não vendidos
-SELECT * FROM tcurso
--- Subselect/Subquery
-WHERE cod_curso NOT IN (SELECT cod_curso FROM titem)
+-- CURSOS NÃO VENDIDOS
+SELECT * FROM TCURSO
+-- SUBSELECT/SUBQUERY
+WHERE COD_CURSO NOT IN (SELECT COD_CURSO FROM TITEM)
 
--- Cursos vendidos
-SELECT * FROM tcurso
-WHERE cod_curso IN (SELECT cod_curso FROM titem)
+-- CURSOS VENDIDOS
+SELECT * FROM TCURSO
+WHERE COD_CURSO IN (SELECT COD_CURSO FROM TITEM)
 
--- Equivalente ao SELECT IN
-SELECT * FROM titem
-WHERE cod_curso = 1
-OR cod_curso = 2
-OR cod_curso = 4;
+-- EQUIVALENTE AO SELECT IN
+SELECT * FROM TITEM
+WHERE COD_CURSO = 1
+OR COD_CURSO = 2
+OR COD_CURSO = 4;
 
--- Registros que iniciam com M
-SELECT * FROM taluno WHERE nome LIKE 'M%'
+-- REGISTROS QUE INICIAM COM M
+SELECT * FROM TALUNO WHERE NOME LIKE 'M%'
 
--- Registros que contenham a palavra "JAVA"
-SELECT * FROM tcurso WHERE nome LIKE '%JAVA%'
+-- REGISTROS QUE CONTENHAM A PALAVRA "JAVA"
+SELECT * FROM TCURSO WHERE NOME LIKE '%JAVA%'
 
--- Registros que terminam com a palavra "FACES"
-SELECT * FROM tcurso WHERE nome LIKE '%FACES'
+-- REGISTROS QUE TERMINAM COM A PALAVRA "FACES"
+SELECT * FROM TCURSO WHERE NOME LIKE '%FACES'
 
--- Somente onde a segunda letra seja A
-SELECT * FROM tcurso WHERE nome LIKE '_A%'
+-- SOMENTE ONDE A SEGUNDA LETRA SEJA A
+SELECT * FROM TCURSO WHERE NOME LIKE '_A%'
 
 COMMIT;
 
 
-ALTER TABLE tcurso ADD pre_req INTEGER;
+ALTER TABLE TCURSO ADD PRE_REQ INTEGER;
 
-UPDATE tcurso SET
-pre_req = 1
-WHERE cod_curso = 2;
+UPDATE TCURSO SET
+PRE_REQ = 1
+WHERE COD_CURSO = 2;
 
-UPDATE tcurso SET
-pre_req = 3
-WHERE cod_curso = 4;
+UPDATE TCURSO SET
+PRE_REQ = 3
+WHERE COD_CURSO = 4;
 
-SELECT * FROM tcurso
+SELECT * FROM TCURSO
 
--- Cursos sem pre-requisitos
-SELECT * FROM tcurso WHERE pre_req IS NULL
+-- CURSOS SEM PRE-REQUISITOS
+SELECT * FROM TCURSO WHERE PRE_REQ IS NULL
 
--- Cursos com pre-requisitos
-SELECT * FROM tcurso WHERE pre_req IS NOT NULL
+-- CURSOS COM PRE-REQUISITOS
+SELECT * FROM TCURSO WHERE PRE_REQ IS NOT NULL
 
 
--- Precedência de Operadores
+-- PRECEDÊNCIA DE OPERADORES
 -- ()
 -- AND
 -- OR
 
---Incorreto
-SELECT * FROM tcurso
-WHERE valor > 750
-OR valor < 1000
-AND carga_horaria = 25;
+--INCORRETO
+SELECT * FROM TCURSO
+WHERE VALOR > 750
+OR VALOR < 1000
+AND CARGA_HORARIA = 25;
 
--- Correto
-SELECT * FROM tcurso
-WHERE (valor > 750
-OR valor < 1000)
-AND carga_horaria = 25;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- CORRETO
+SELECT * FROM TCURSO
+WHERE (VALOR > 750
+OR VALOR < 1000)
+AND CARGA_HORARIA = 25;
 
 
 ROLLBACK;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

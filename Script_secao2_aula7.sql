@@ -1,135 +1,115 @@
-SELECT [DISTINCT] {*, COLUMN [alias], ...}
-FROM nome_table;
+SELECT [DISTINCT] {*, COLUMN [ALIAS], ...}
+FROM NOME_TABLE;
 
 /*
-  Na sintaxe:
-  SELECT = é uma lista de uma ou mais colunas
-  DISTINCT = suprime duplicidades
-  * = seleciona todas as colunas
-  column = seleciona a coluna nomeada
-  alias = fornece títulos diferentes para as colunas selecionadas
-  FROM nome_table = especifica a tabela que contém as colunas
+  NA SINTAXE:
+  SELECT = É UMA LISTA DE UMA OU MAIS COLUNAS
+  DISTINCT = SUPRIME DUPLICIDADES
+  * = SELECIONA TODAS AS COLUNAS
+  COLUMN = SELECIONA A COLUNA NOMEADA
+  ALIAS = FORNECE TÍTULOS DIFERENTES PARA AS COLUNAS SELECIONADAS
+  FROM NOME_TABLE = ESPECIFICA A TABELA QUE CONTÉM AS COLUNAS
 */
 
 
--- Operações com colunas com valores NULL,
---  anulam a operação inteira
+-- OPERAÇÕES COM COLUNAS COM VALORES NULL,
+--  ANULAM A OPERAÇÃO INTEIRA
 
 
 -- ALIAS
--- Com ou sem AS
-SELECT cod_aluno codigo, nome AS aluno
-FROM taluno;
+-- COM OU SEM AS
+SELECT COD_ALUNO CODIGO, NOME AS ALUNO
+FROM TALUNO;
 
--- Com espaço no nome
-SELECT nome "Nome de Aluno"
-FROM taluno;
-
-
--- Concatenação
--- Junta as colunas e nomeia a mesma
-SELECT cod_aluno||nome AS "Aluno"
-FROM taluno;
-
-SELECT * FROM taluno
+-- COM ESPAÇO NO NOME
+SELECT NOME "NOME DE ALUNO"
+FROM TALUNO;
 
 
--- STRINGS de Caractere Literais: qualquer caractere,
---  expressão ou número em aspas simples ''
-SELECT nome || ' nasceu em ' || cidade AS "Nascimento do Aluno"
-FROM taluno;
+-- CONCATENAÇÃO
+-- JUNTA AS COLUNAS E NOMEIA A MESMA
+SELECT COD_ALUNO||NOME AS "ALUNO"
+FROM TALUNO;
+
+SELECT * FROM TALUNO
 
 
--- Na prática:
-
--- Alias com "" força as letras a ficarem caixa baixa
-SELECT cod_aluno AS "Codigo", nome AS "Nome do Aluno"
-FROM taluno;
-
-
--- DISTINCT analisa a linha inteira, não apenas "células"
-SELECT DISTINCT cidade, cod_aluno
-FROM taluno
--- Ordena a coluna que irá ser visualizada primeiro na listagem
-ORDER BY cidade;
-
-SELECT * FROM tcurso
-
-ALTER TABLE tcurso RENAME COLUMN carga_horario TO carga_horaria;
-
-SELECT nome AS curso,
-       valor,
-       -- Divisão p/ saber valor da hora
-       valor/carga_horaria,
-       -- Arredondar para duas casas decimais
-       Round(valor/carga_horaria,2) AS valor_hora
-FROM tcurso
--- Alias só funciona em ORDER BY
-ORDER BY valor_hora
+-- STRINGS DE CARACTERE LITERAIS: QUALQUER CARACTERE,
+--  EXPRESSÃO OU NÚMERO EM ASPAS SIMPLES ''
+SELECT NOME || ' NASCEU EM ' || CIDADE AS "NASCIMENTO DO ALUNO"
+FROM TALUNO;
 
 
-SELECT * FROM tcontrato;
+-- NA PRÁTICA:
 
-UPDATE tcontrato SET
-desconto = NULL
-WHERE cod_contrato = 4;
-
--- Cálculo com coluna = NULL, retorna resultado = NULL
-SELECT cod_contrato,
-       total,
-       desconto,
-       -- Soma
-       total+desconto
-FROM tcontrato;
+-- ALIAS COM "" FORÇA AS LETRAS A FICAREM CAIXA BAIXA
+SELECT COD_ALUNO AS "CODIGO", NOME AS "NOME DO ALUNO"
+FROM TALUNO;
 
 
-SELECT cod_contrato,
-       desconto,
-       -- Nvl: trata colunas nulas
-       -- Se coluna for nula, retorna igual a 0
-       Nvl(desconto,0),
-       total,
-       total + Nvl(desconto,0) AS Total_Mais_Desconto
-FROM tcontrato;
+-- DISTINCT ANALISA A LINHA INTEIRA, NÃO APENAS "CÉLULAS"
+SELECT DISTINCT CIDADE, COD_ALUNO
+FROM TALUNO
+-- ORDENA A COLUNA QUE IRÁ SER VISUALIZADA PRIMEIRO NA LISTAGEM
+ORDER BY CIDADE;
+
+SELECT * FROM TCURSO
+
+ALTER TABLE TCURSO RENAME COLUMN CARGA_HORARIO TO CARGA_HORARIA;
+
+SELECT NOME AS CURSO,
+       VALOR,
+       -- DIVISÃO P/ SABER VALOR DA HORA
+       VALOR/CARGA_HORARIA,
+       -- ARREDONDAR PARA DUAS CASAS DECIMAIS
+       ROUND(VALOR/CARGA_HORARIA,2) AS VALOR_HORA
+FROM TCURSO
+-- ALIAS SÓ FUNCIONA EM ORDER BY
+ORDER BY VALOR_HORA
 
 
--- Concatenação
-SELECT cod_aluno || ' - ' || nome || ' // ' || cidade AS aluno
-FROM taluno
-ORDER BY cod_aluno
+SELECT * FROM TCONTRATO;
+
+UPDATE TCONTRATO SET
+DESCONTO = NULL
+WHERE COD_CONTRATO = 4;
+
+-- CÁLCULO COM COLUNA = NULL, RETORNA RESULTADO = NULL
+SELECT COD_CONTRATO,
+       TOTAL,
+       DESCONTO,
+       -- SOMA
+       TOTAL+DESCONTO
+FROM TCONTRATO;
 
 
--- Tipos de colunas:
-INTEGER = 1, 2 -- número inteiro -> atalho para NUMBER(38)
-NUMBER(5,2) = 999,99 -- no máximo 3 dígitos + 2 casas decimais
-NUMBER(4,2) = 99,99 -- NUMBER = representar uma quantidade ou valor
-NUMERIC(5,2) = 999,99 -- NUMERIC = adjetivo que descreve algo relacionado a números ou valores numéricos
-DATE = '10/03/2011 00:00:00' -- sempre apresenta a junção de data e hora no retorno
-VARCHAR -- sinônimo de VARCHAR2
-VARCHAR2(10) = 'MARCIO' -- se restringir em 10 caracteres e ter apenas 6 em uso, vai ocupar espaço de somente 6 na memória
-CHAR(10) = 'MARCIO    ' -- se restringir em 10 caracteres e ter apenas 6 em uso, vai ocupar espaço de 10 na memória
+SELECT COD_CONTRATO,
+       DESCONTO,
+       -- NVL: TRATA COLUNAS NULAS
+       -- SE COLUNA FOR NULA, RETORNA IGUAL A 0
+       NVL(DESCONTO,0),
+       TOTAL,
+       TOTAL + NVL(DESCONTO,0) AS TOTAL_MAIS_DESCONTO
+FROM TCONTRATO;
+
+
+-- CONCATENAÇÃO
+SELECT COD_ALUNO || ' - ' || NOME || ' // ' || CIDADE AS ALUNO
+FROM TALUNO
+ORDER BY COD_ALUNO
+
+
+-- TIPOS DE COLUNAS:
+INTEGER = 1, 2 -- NÚMERO INTEIRO -> ATALHO PARA NUMBER(38)
+NUMBER(5,2) = 999,99 -- NO MÁXIMO 3 DÍGITOS + 2 CASAS DECIMAIS
+NUMBER(4,2) = 99,99 -- NUMBER = REPRESENTAR UMA QUANTIDADE OU VALOR
+NUMERIC(5,2) = 999,99 -- NUMERIC = ADJETIVO QUE DESCREVE ALGO RELACIONADO A NÚMEROS OU VALORES NUMÉRICOS
+DATE = '10/03/2011 00:00:00' -- SEMPRE APRESENTA A JUNÇÃO DE DATA E HORA NO RETORNO
+VARCHAR -- SINÔNIMO DE VARCHAR2
+VARCHAR2(10) = 'MARCIO' -- SE RESTRINGIR EM 10 CARACTERES E TER APENAS 6 EM USO, VAI OCUPAR ESPAÇO DE SOMENTE 6 NA MEMÓRIA
+CHAR(10) = 'MARCIO    ' -- SE RESTRINGIR EM 10 CARACTERES E TER APENAS 6 EM USO, VAI OCUPAR ESPAÇO DE 10 NA MEMÓRIA
 
 COMMIT;
-
-
---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

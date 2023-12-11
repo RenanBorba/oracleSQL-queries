@@ -1,477 +1,309 @@
 /*
-  Aula 10
+  AULA 10
 
-  Funções do tipo Single-Row
-  - Manipulam itens de dados
-  - Recebem argumentos e retornam um valor
-  - Atuam sobre cada linha recuperada
-  - Retornam um resultado por linha
-  - Podem modificar o tipo de um dado
-  - Podem ser aninhadas
+  FUNÇÕES DO TIPO SINGLE-ROW
+  - MANIPULAM ITENS DE DADOS
+  - RECEBEM ARGUMENTOS E RETORNAM UM VALOR
+  - ATUAM SOBRE CADA LINHA RECUPERADA
+  - RETORNAM UM RESULTADO POR LINHA
+  - PODEM MODIFICAR O TIPO DE UM DADO
+  - PODEM SER ANINHADAS
 
-  function_name (column|expression, [arg1, arg2, ...])
+  FUNCTION_NAME (COLUMN|EXPRESSION, [ARG1, ARG2, ...])
 
-  As Multiple-Row Functions no Oracle são usadas para retornar
-    um grupo de valores (ou) um único valor
+  AS MULTIPLE-ROW FUNCTIONS NO ORACLE SÃO USADAS PARA RETORNAR
+    UM GRUPO DE VALORES (OU) UM ÚNICO VALOR
 */
 
-SELECT * FROM taluno
+SELECT * FROM TALUNO
 
--- Junta valores de colunas
-SELECT Concat(cod_aluno, nome) FROM taluno;
+-- JUNTA VALORES DE COLUNAS
+SELECT CONCAT(COD_ALUNO, NOME) FROM TALUNO;
 
--- mesmo efeito
-SELECT cod_aluno||nome FROM taluno;
+-- MESMO EFEITO
+SELECT COD_ALUNO||NOME FROM TALUNO;
 
-SELECT cod_aluno||' '||nome FROM taluno;
+SELECT COD_ALUNO||' '||NOME FROM TALUNO;
 
--- Transforma a primeira letra em maiúscula de cada palavra
-SELECT nome, InitCap(nome) FROM taluno;
+-- TRANSFORMA A PRIMEIRA LETRA EM MAIÚSCULA DE CADA PALAVRA
+SELECT NOME, INITCAP(NOME) FROM TALUNO;
 
-SELECT InitCap('Mateus da Silva') FROM taluno;
+SELECT INITCAP('MATEUS DA SILVA') FROM TALUNO;
 
--- Retornar apenas uma vez
-SELECT InitCap('Mateus da Silva') FROM dual;
+-- RETORNAR APENAS UMA VEZ
+SELECT INITCAP('MATEUS DA SILVA') FROM DUAL;
 
--- Verificar em qual posição a letra apareceu na palavra
-SELECT nome, InStr(nome, 'r') FROM taluno;
+-- VERIFICAR EM QUAL POSIÇÃO A LETRA APARECEU NA PALAVRA
+SELECT NOME, INSTR(NOME, 'R') FROM TALUNO;
 
--- Conta quantos caracteres têm
-SELECT nome, Length(nome) FROM taluno
+-- CONTA QUANTOS CARACTERES TÊM
+SELECT NOME, LENGTH(NOME) FROM TALUNO
 
--- Transforma os valores em minúsculo
-SELECT nome, Lower(nome) FROM taluno;
+-- TRANSFORMA OS VALORES EM MINÚSCULO
+SELECT NOME, LOWER(NOME) FROM TALUNO;
 
--- Transforma os valores em maiúsculo
-SELECT nome, Upper(nome) FROM taluno;
+-- TRANSFORMA OS VALORES EM MAIÚSCULO
+SELECT NOME, UPPER(NOME) FROM TALUNO;
 
--- L = Left - esquerda, preenche com o 'valor'
---  na quantidade à esquerda, até o valor preencher as casas
-SELECT cod_aluno, LPad(cod_aluno, 5, '0') FROM taluno;
+-- L = LEFT - ESQUERDA, PREENCHE COM O 'VALOR'
+--  NA QUANTIDADE À ESQUERDA, ATÉ O VALOR PREENCHER AS CASAS
+SELECT COD_ALUNO, LPAD(COD_ALUNO, 5, '0') FROM TALUNO;
 
--- mesmo efeito à direita
-SELECT nome, RPad(salario, 8, '0') AS Salario FROM taluno ;
+-- MESMO EFEITO À DIREITA
+SELECT NOME, RPAD(SALARIO, 8, '0') AS SALARIO FROM TALUNO ;
 
-SELECT nome, RPad(nome, 10, '@') FROM taluno;
+SELECT NOME, RPAD(NOME, 10, '@') FROM TALUNO;
 
--- Copia parte de um texto (valor, posição inicial, qtd. caractr)
-SELECT nome, SubStr(nome, 1, 3) from taluno;
+-- COPIA PARTE DE UM TEXTO (VALOR, POSIÇÃO INICIAL, QTD. CARACTR)
+SELECT NOME, SUBSTR(NOME, 1, 3) FROM TALUNO;
 
-SELECT nome, SubStr(nome, 1, 1) from taluno;
+SELECT NOME, SUBSTR(NOME, 1, 1) FROM TALUNO;
 
-SELECT nome, SubStr(nome, 3, 2) from taluno;
+SELECT NOME, SUBSTR(NOME, 3, 2) FROM TALUNO;
 
--- Substituir todos 'R' por '$' do campo
-SELECT REPLACE(nome, 'R', '$') FROM taluno;
+-- SUBSTITUIR TODOS 'R' POR '$' DO CAMPO
+SELECT REPLACE(NOME, 'R', '$') FROM TALUNO;
 
--- Funções aninhadas
-SELECT REPLACE(Upper(nome), 'R', '$') FROM taluno;
+-- FUNÇÕES ANINHADAS
+SELECT REPLACE(UPPER(NOME), 'R', '$') FROM TALUNO;
 
--- Retornar a última letra
-SELECT nome, SubStr(nome, Length(nome), 1) FROM taluno;
+-- RETORNAR A ÚLTIMA LETRA
+SELECT NOME, SUBSTR(NOME, LENGTH(NOME), 1) FROM TALUNO;
 
--- Retorna os dois últimos
-SELECT nome, SubStr(nome, Length(nome)-1, 2) FROM taluno;
+-- RETORNA OS DOIS ÚLTIMOS
+SELECT NOME, SUBSTR(NOME, LENGTH(NOME)-1, 2) FROM TALUNO;
 
--- Copia a partir da posição 3 os 3 próximos caracteres
-SELECT nome, SubStr(nome, 3, Length(nome)-3) FROM taluno;
+-- COPIA A PARTIR DA POSIÇÃO 3 OS 3 PRÓXIMOS CARACTERES
+SELECT NOME, SUBSTR(NOME, 3, LENGTH(NOME)-3) FROM TALUNO;
 
 
--- Aula 11
+-- AULA 11
 
--- Transforma em minúsculo
-SELECT * FROM taluno
-WHERE Lower(nome) = 'renan';
+-- TRANSFORMA EM MINÚSCULO
+SELECT * FROM TALUNO
+WHERE LOWER(NOME) = 'RENAN';
 
--- Transforma em maiúsculo
-SELECT * FROM taluno
-WHERE Upper(nome) = 'RENAN';
+-- TRANSFORMA EM MAIÚSCULO
+SELECT * FROM TALUNO
+WHERE UPPER(NOME) = 'RENAN';
 
--- Copia as 3 primeiras letras e transformar em maiúsculo
---  e comparar com a string
-SELECT * FROM taluno
-WHERE Upper(SubStr(cidade, 1, 3)) = 'ITA'
+-- COPIA AS 3 PRIMEIRAS LETRAS E TRANSFORMAR EM MAIÚSCULO
+--  E COMPARAR COM A STRING
+SELECT * FROM TALUNO
+WHERE UPPER(SUBSTR(CIDADE, 1, 3)) = 'ITA'
 
-UPDATE taluno SET
-salario = 833.47
-WHERE cod_aluno = 1;
+UPDATE TALUNO SET
+SALARIO = 833.47
+WHERE COD_ALUNO = 1;
 
 SELECT
-  salario,
-  REPLACE(salario, '.' , ' '),
-  RPad(salario, 10, '0'), -- Zeros à direita até 10 casas
-  LPad(salario, 10, '0'), -- Zeros à esquerda até 10 casas
-  LPad(REPLACE(salario, '.', ' '), 10, '0')
-FROM taluno;
+  SALARIO,
+  REPLACE(SALARIO, '.' , ' '),
+  RPAD(SALARIO, 10, '0'), -- ZEROS À DIREITA ATÉ 10 CASAS
+  LPAD(SALARIO, 10, '0'), -- ZEROS À ESQUERDA ATÉ 10 CASAS
+  LPAD(REPLACE(SALARIO, '.', ' '), 10, '0')
+FROM TALUNO;
 
--- Round e Trunc
-SELECT Round(45.925, 2), -- 45.93, arredondar em duas casas
-       Trunc(45.929, 2), -- 45.92, trunca (arredonda para baixo) em duas casas
-       Mod(10, 2) AS resto_divisao, -- divide 10 por 2 e retorna o resto
-       Trunc(1.99),
-       Trunc(1.99, 2)
-FROM dual;
-
-
--- Aula 12: Data
-
-SELECT * FROM dual;
-
--- SysDate retorna data/hora do Servidor
-SELECT SYSDATE FROM dual;
+-- ROUND E TRUNC
+SELECT ROUND(45.925, 2), -- 45.93, ARREDONDAR EM DUAS CASAS
+       TRUNC(45.929, 2), -- 45.92, TRUNCA (ARREDONDA PARA BAIXO) EM DUAS CASAS
+       MOD(10, 2) AS RESTO_DIVISAO, -- DIVIDE 10 POR 2 E RETORNA O RESTO
+       TRUNC(1.99),
+       TRUNC(1.99, 2)
+FROM DUAL;
 
 
--- Funções de Data/Hora
+-- AULA 12: DATA
 
--- Somar + 5 dias
-SELECT data, SYSDATE, data + 5 FROM tcontrato;
+SELECT * FROM DUAL;
 
--- Data de hoje - valor da data
-SELECT SYSDATE - data AS diferenca_dias FROM tcontrato;
-
--- Para não retornar a hora (valor muito grande)
-SELECT Trunc(SYSDATE - data) AS diferenca_dias FROM tcontrato;
-
--- Somar horas em uma data
--- Data atual + 2 horas (dividido por 24 horas = 1 dia)
-SELECT SYSDATE, SYSDATE + 2 / 24 AS add_horas FROM tcontrato;
-
--- Somar minutos em uma data
--- Data atual + 15 minutos (dividido pelos minutos em 1 dia = 1440)
-SELECT SYSDATE, SYSDATE + 15 / 1440 AS add_minutos FROM tcontrato;
-
--- Somar segundos em uma data
--- Data atual + 30 segundos (dividido pelos segundos em 1 hora = 3600
---  multiplicado por 24 horas)
-SELECT SYSDATE, SYSDATE + 30 / (3600 * 24) AS add_segundos FROM tcontrato
+-- SYSDATE RETORNA DATA/HORA DO SERVIDOR
+SELECT SYSDATE FROM DUAL;
 
 
--- Hora fica 00:00:00
-SELECT SYSDATE, Trunc(SYSDATE) FROM dual;
+-- FUNÇÕES DE DATA/HORA
 
--- Diferença de meses entre datas
-SELECT Months_Between(SYSDATE, SYSDATE-90) AS dif_mes FROM dual;
+-- SOMAR + 5 DIAS
+SELECT DATA, SYSDATE, DATA + 5 FROM TCONTRATO;
 
--- Adiciona meses
-SELECT SYSDATE, Add_Months(SYSDATE, 5) AS add_mes_data FROM dual;
+-- DATA DE HOJE - VALOR DA DATA
+SELECT SYSDATE - DATA AS DIFERENCA_DIAS FROM TCONTRATO;
 
--- Proxima data a partir de um dia da semana
-SELECT Next_Day(SYSDATE, 'Quarta-Feira') AS proxima_quarta_data FROM dual;
-SELECT Next_Day(SYSDATE, 'Wednesday') AS proxima_quarta_data FROM dual;
+-- PARA NÃO RETORNAR A HORA (VALOR MUITO GRANDE)
+SELECT TRUNC(SYSDATE - DATA) AS DIFERENCA_DIAS FROM TCONTRATO;
 
--- Último dia do mês
-SELECT Last_Day(SYSDATE) AS ultimo_dia_mes FROM dual;
+-- SOMAR HORAS EM UMA DATA
+-- DATA ATUAL + 2 HORAS (DIVIDIDO POR 24 HORAS = 1 DIA)
+SELECT SYSDATE, SYSDATE + 2 / 24 AS ADD_HORAS FROM TCONTRATO;
 
--- Primeiro dia do próximo mês
--- Até dia 15 do mês: retorna o primeiro dia do mês atual
---  a partir do dia 16: retorna o primeiro dia do próximo mês
-SELECT Round(SYSDATE, 'MONTH') AS primeiro_dia_proximo_mes FROM dual;
+-- SOMAR MINUTOS EM UMA DATA
+-- DATA ATUAL + 15 MINUTOS (DIVIDIDO PELOS MINUTOS EM 1 DIA = 1440)
+SELECT SYSDATE, SYSDATE + 15 / 1440 AS ADD_MINUTOS FROM TCONTRATO;
 
--- Primeiro dia do mês corrente
-SELECT Trunc(SYSDATE, 'MONTH') AS primeiro_dia_mes_corrente FROM dual;
-
-
--- Aula 13: Formatação de data
-
--- Conversor to_char(data, formato)
---  converte para String
-
--- Formatar a Data em Dia -> DD
-SELECT SYSDATE, To_Char(SYSDATE, 'DD') Dia FROM dual;
-
--- Formatar a Data em Mês -> MM
-SELECT SYSDATE, To_Char(SYSDATE, 'MM') Mes FROM dual;
-
--- Formatar a Data em Ano -> YYYY
-SELECT SYSDATE, To_Char(SYSDATE, 'YYYY') Ano FROM dual;
-
--- Formatar a Data em Ano -> YY
-SELECT SYSDATE, To_Char(SYSDATE, 'YY') Ano FROM dual;
-
--- Formatar a Data em Dia/Mês/Ano -> DD/MM/YYYY
-SELECT SYSDATE, To_Char(SYSDATE, 'DD/MM/YYYY') Data FROM dual;
-
--- Formatar a Data em Dia/Mês -> DD/MM
-SELECT SYSDATE, To_Char(SYSDATE, 'DD/MM') Dia_mes FROM dual;
-
--- Retornar Mês atual
-SELECT To_Char(SYSDATE, 'MONTH') Mes FROM dual;
-
--- Retornar Número do Dia da semana
-SELECT To_Char(SYSDATE, 'D') Dia_semana FROM dual;
-
--- Retornar Número do Dia da semana
-SELECT To_Char(SYSDATE, 'DY') Dia_semana FROM dual;  -- QUA -> WED
-
--- Retornar Número do Dia da semana
-SELECT To_Char(SYSDATE, 'DAY') Dia_semana FROM dual;  -- QUARTA -> WEDNESDAY
-
--- Retornar Número do Dia da semana
-SELECT To_Char(SYSDATE, 'YEAR') Dia_semana FROM dual;  -- Em Ingles
-
-SELECT To_Char(SYSDATE, ' "PALMARES", fmDAY "," DD "de" fmMonth "de" YYYY') FROM dual
-SELECT To_Char(SYSDATE, ' "PALMARES", DAY "," DD "de" Month "de" YYYY') FROM dual
+-- SOMAR SEGUNDOS EM UMA DATA
+-- DATA ATUAL + 30 SEGUNDOS (DIVIDIDO PELOS SEGUNDOS EM 1 HORA = 3600
+--  MULTIPLICADO POR 24 HORAS)
+SELECT SYSDATE, SYSDATE + 30 / (3600 * 24) AS ADD_SEGUNDOS FROM TCONTRATO
 
 
--- Formatar em Hora/Minutos
-SELECT To_Char(SYSDATE, 'HH24:MI') hora_min FROM dual;
+-- HORA FICA 00:00:00
+SELECT SYSDATE, TRUNC(SYSDATE) FROM DUAL;
 
--- Formatar em Hora/Minutos/Segundos
-SELECT To_Char(SYSDATE, 'HH24:MI:SS') hora_min_seg FROM dual;
+-- DIFERENÇA DE MESES ENTRE DATAS
+SELECT MONTHS_BETWEEN(SYSDATE, SYSDATE-90) AS DIF_MES FROM DUAL;
 
--- Formatar em Dia/Mês/hora/minutos
-SELECT To_Char(SYSDATE, 'DD/MM HH24:MI') data_hora FROM dual;
+-- ADICIONA MESES
+SELECT SYSDATE, ADD_MONTHS(SYSDATE, 5) AS ADD_MES_DATA FROM DUAL;
 
--- Aula 14
+-- PROXIMA DATA A PARTIR DE UM DIA DA SEMANA
+SELECT NEXT_DAY(SYSDATE, 'QUARTA-FEIRA') AS PROXIMA_QUARTA_DATA FROM DUAL;
+SELECT NEXT_DAY(SYSDATE, 'WEDNESDAY') AS PROXIMA_QUARTA_DATA FROM DUAL;
+
+-- ÚLTIMO DIA DO MÊS
+SELECT LAST_DAY(SYSDATE) AS ULTIMO_DIA_MES FROM DUAL;
+
+-- PRIMEIRO DIA DO PRÓXIMO MÊS
+-- ATÉ DIA 15 DO MÊS: RETORNA O PRIMEIRO DIA DO MÊS ATUAL
+--  A PARTIR DO DIA 16: RETORNA O PRIMEIRO DIA DO PRÓXIMO MÊS
+SELECT ROUND(SYSDATE, 'MONTH') AS PRIMEIRO_DIA_PROXIMO_MES FROM DUAL;
+
+-- PRIMEIRO DIA DO MÊS CORRENTE
+SELECT TRUNC(SYSDATE, 'MONTH') AS PRIMEIRO_DIA_MES_CORRENTE FROM DUAL;
+
+
+-- AULA 13: FORMATAÇÃO DE DATA
+
+-- CONVERSOR TO_CHAR(DATA, FORMATO)
+--  CONVERTE PARA STRING
+
+-- FORMATAR A DATA EM DIA -> DD
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'DD') DIA FROM DUAL;
+
+-- FORMATAR A DATA EM MÊS -> MM
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'MM') MES FROM DUAL;
+
+-- FORMATAR A DATA EM ANO -> YYYY
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'YYYY') ANO FROM DUAL;
+
+-- FORMATAR A DATA EM ANO -> YY
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'YY') ANO FROM DUAL;
+
+-- FORMATAR A DATA EM DIA/MÊS/ANO -> DD/MM/YYYY
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'DD/MM/YYYY') DATA FROM DUAL;
+
+-- FORMATAR A DATA EM DIA/MÊS -> DD/MM
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'DD/MM') DIA_MES FROM DUAL;
+
+-- RETORNAR MÊS ATUAL
+SELECT TO_CHAR(SYSDATE, 'MONTH') MES FROM DUAL;
+
+-- RETORNAR NÚMERO DO DIA DA SEMANA
+SELECT TO_CHAR(SYSDATE, 'D') DIA_SEMANA FROM DUAL;
+
+-- RETORNAR NÚMERO DO DIA DA SEMANA
+SELECT TO_CHAR(SYSDATE, 'DY') DIA_SEMANA FROM DUAL;  -- QUA -> WED
+
+-- RETORNAR NÚMERO DO DIA DA SEMANA
+SELECT TO_CHAR(SYSDATE, 'DAY') DIA_SEMANA FROM DUAL;  -- QUARTA -> WEDNESDAY
+
+-- RETORNAR NÚMERO DO DIA DA SEMANA
+SELECT TO_CHAR(SYSDATE, 'YEAR') DIA_SEMANA FROM DUAL;  -- EM INGLES
+
+SELECT TO_CHAR(SYSDATE, ' "PALMARES", FMDAY "," DD "DE" FMMONTH "DE" YYYY') FROM DUAL
+SELECT TO_CHAR(SYSDATE, ' "PALMARES", DAY "," DD "DE" MONTH "DE" YYYY') FROM DUAL
+
+
+-- FORMATAR EM HORA/MINUTOS
+SELECT TO_CHAR(SYSDATE, 'HH24:MI') HORA_MIN FROM DUAL;
+
+-- FORMATAR EM HORA/MINUTOS/SEGUNDOS
+SELECT TO_CHAR(SYSDATE, 'HH24:MI:SS') HORA_MIN_SEG FROM DUAL;
+
+-- FORMATAR EM DIA/MÊS/HORA/MINUTOS
+SELECT TO_CHAR(SYSDATE, 'DD/MM HH24:MI') DATA_HORA FROM DUAL;
+
+-- AULA 14
 
 -- L -> R$
--- G -> ponto
--- D -> casas decimais
+-- G -> PONTO
+-- D -> CASAS DECIMAIS
 
-SELECT To_Char(salario, 'L99999.99'), To_Char(salario, 'L99G999D99') FROM taluno;
+SELECT TO_CHAR(SALARIO, 'L99999.99'), TO_CHAR(SALARIO, 'L99G999D99') FROM TALUNO;
 
-SELECT Trim(To_Char(salario, 'L99999.99')),
-       Trim(To_Char(salario, 'L99G999D99'))
-FROM taluno;
+SELECT TRIM(TO_CHAR(SALARIO, 'L99999.99')),
+       TRIM(TO_CHAR(SALARIO, 'L99G999D99'))
+FROM TALUNO;
 
-SELECT 'R$'||(Round(Salario,2)) AS salario FROM taluno;
-
-
--- Nvl e Nvl2
-SELECT total,
-       desconto,
-       desconto+total,
-       -- Caso a coluna seja nula, atribui valor 0
-       Nvl(Desconto,0),
-       Nvl(Desconto,0) + total,
-       -- Nvl2 = 2 colunas
-       -- Se a coluna Desconto for nula atribui -1,
-       --   senão atribui o valor de Total
-       Nvl2(desconto, total, -1),
-       -- Se a coluna Desconto for nula, o valor atribuído vai ser Total,
-       --   senão atribui o valor -1
-       Nvl2(desconto, -1, total),
-       Nvl2(desconto, total, 0)
-FROM tcontrato;
+SELECT 'R$'||(ROUND(SALARIO,2)) AS SALARIO FROM TALUNO;
 
 
-SELECT * FROM taluno
+-- NVL E NVL2
+SELECT TOTAL,
+       DESCONTO,
+       DESCONTO+TOTAL,
+       -- CASO A COLUNA SEJA NULA, ATRIBUI VALOR 0
+       NVL(DESCONTO,0),
+       NVL(DESCONTO,0) + TOTAL,
+       -- NVL2 = 2 COLUNAS
+       -- SE A COLUNA DESCONTO FOR NULA ATRIBUI -1,
+       --   SENÃO ATRIBUI O VALOR DE TOTAL
+       NVL2(DESCONTO, TOTAL, -1),
+       -- SE A COLUNA DESCONTO FOR NULA, O VALOR ATRIBUÍDO VAI SER TOTAL,
+       --   SENÃO ATRIBUI O VALOR -1
+       NVL2(DESCONTO, -1, TOTAL),
+       NVL2(DESCONTO, TOTAL, 0)
+FROM TCONTRATO;
 
-UPDATE taluno SET
-nome = NULL
-WHERE cod_aluno = 5;
 
-SELECT cod_aluno,
-       Nvl(nome, 'SEM NOME')
+SELECT * FROM TALUNO
+
+UPDATE TALUNO SET
+NOME = NULL
+WHERE COD_ALUNO = 5;
+
+SELECT COD_ALUNO,
+       NVL(NOME, 'SEM NOME')
 FROM TALUNO
 
 
 -- CASE || WHEN || THEN
 
-UPDATE taluno SET
-estado = 'AC'
-WHERE cod_aluno = 2;
+UPDATE TALUNO SET
+ESTADO = 'AC'
+WHERE COD_ALUNO = 2;
 
-UPDATE taluno SET
-estado = 'SC'
-WHERE cod_aluno = 4;
+UPDATE TALUNO SET
+ESTADO = 'SC'
+WHERE COD_ALUNO = 4;
 
-UPDATE taluno SET
-estado = 'RJ'
-WHERE cod_aluno = 5;
+UPDATE TALUNO SET
+ESTADO = 'RJ'
+WHERE COD_ALUNO = 5;
 
-SELECT * FROM taluno
+SELECT * FROM TALUNO
 
-SELECT nome, estado,
+SELECT NOME, ESTADO,
        -- CASO
        CASE
         -- WHEN = QUANDO, THEN = ENTÃO
-        WHEN estado = 'RS' THEN 'GAUCHO'
-        WHEN estado = 'AC' THEN 'ACREANO'
-        WHEN estado = 'RJ' THEN 'CARIOCA'
-        -- WHEN estado = 'RJ' OR salario > 500 THEN 'CARIOCA'
-        -- WHEN estado = 'RJ' AND salario > 500 THEN 'CARIOCA'
+        WHEN ESTADO = 'RS' THEN 'GAUCHO'
+        WHEN ESTADO = 'AC' THEN 'ACREANO'
+        WHEN ESTADO = 'RJ' THEN 'CARIOCA'
+        -- WHEN ESTADO = 'RJ' OR SALARIO > 500 THEN 'CARIOCA'
+        -- WHEN ESTADO = 'RJ' AND SALARIO > 500 THEN 'CARIOCA'
         ELSE 'OUTROS'
-       END AS apelido -- CASE até END = 1 coluna
-FROM taluno;
+       END AS APELIDO -- CASE ATÉ END = 1 COLUNA
+FROM TALUNO;
 
 -- DECODE
-SELECT nome, estado,
-       -- Decodificar coluna -> efeito semelhante ao CASE
-       --   Se 'RS', então atribua 'GAUCHO'
-       Decode(estado, 'RS', 'GAUCHO',
+SELECT NOME, ESTADO,
+       -- DECODIFICAR COLUNA -> EFEITO SEMELHANTE AO CASE
+       --   SE 'RS', ENTÃO ATRIBUA 'GAUCHO'
+       DECODE(ESTADO, 'RS', 'GAUCHO',
                       'AC', 'ACREANO',
                       'SP', 'PAULISTA',
-                            'OUTROS') AS apelido -- senão atribua 'OUTROS'
-FROM taluno;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                            'OUTROS') AS APELIDO -- SENÃO ATRIBUA 'OUTROS'
+FROM TALUNO;
 
 
 
